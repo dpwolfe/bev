@@ -10,7 +10,7 @@ from bev.visualizer.homo_vis import vis_bspec_and_calib_in_grid
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--video-tag", type=str, default="6_left")
+    parser.add_argument("--video-tag", type=str, default="5_left")
     parser.add_argument("--video-path", type=str,
         default="/media/sda1/datasets/extracted/BrnoCompSpeed/dataset/session{video_tag}/video.avi")
     parser.add_argument("--calib-path", type=str,
