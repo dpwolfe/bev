@@ -77,7 +77,9 @@ if __name__ == "__main__":
     H_bev_img_small = np.linalg.inv(H_world_bev).dot(H_world_img_small)
 
     video_out_bev = video_generator(video_out_bev_path, width=bspec.u_size, height=bspec.v_size) if write_vid else None
-    video_out_ori = video_generator(video_out_ori_path, width=new_u, height=new_v) if write_vid else None
+    ori_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    ori_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    video_out_ori = video_generator(video_out_ori_path, width=ori_width, height=ori_height) if write_vid else None
 
     while video.isOpened():
         read_result, img = video.read()
