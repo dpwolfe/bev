@@ -1,3 +1,4 @@
+import argparse
 import bev
 import cv2
 import numpy as np
@@ -5,6 +6,14 @@ import numpy as np
 from bev.constructor.homo_constr import load_calib, preset_bspec
 from bev.visualizer.homo_vis import vis_bspec_and_calib_in_grid
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--video-tag", type=str, default="6_left")
+    parser.add_argument("--video-path", type=str,
+        default="/media/sda1/datasets/extracted/BrnoCompSpeed/dataset/session{video_tag}/video.avi")
+    parser.add_argument("--calib-path", type=str,
+        default="/media/sda1/datasets/extracted/BrnoCompSpeed/calib/session{video_tag}/system_dubska_optimal_calib.json")
+    args = parser.parse_args()
 
     # img_path = "/media/sda1/datasets/extracted/KoPER/added/SK_1_empty_road_bev.png"
     # # img_path = "/media/sda1/datasets/extracted/KoPER/Sequence1a/KAB_SK_1_undist/KAB_SK_1_undist_1384779301359985.bmp"
@@ -16,15 +25,15 @@ if __name__ == "__main__":
     # cv2.imshow("img", img)
     # cv2.waitKey()
 
-    video_tag = "6_left"
+    video_tag = args.video_tag
     cam_id = int(video_tag[0])
     cam_sub = video_tag.split("_")[1]
     sub_id_dict = {"left":0.1, "center":0.2, "right":0.3}
     cam_id = cam_id + sub_id_dict[cam_sub]
     # print("cam_id", cam_id)
 
-    video_path = "/media/sda1/datasets/extracted/BrnoCompSpeed/dataset/session{}/video.avi".format(video_tag)
-    calib_path = "/media/sda1/datasets/extracted/BrnoCompSpeed/calib/session{}/system_dubska_optimal_calib.json".format(video_tag)
+    video_path = args.video_path.format(video_tag=video_tag)
+    calib_path = args.calib_path.format(video_tag=video_tag)
 
     video = cv2.VideoCapture(video_path)    
     calib = load_calib("BrnoCompSpeed", calib_path)
